@@ -44,9 +44,25 @@ exports.getAll = (req, res) => {
                 users: users
             })
         }).catch(err => {
-            let message = `ERRO: Ocorreu um erro interno. Tente novamente.`;
             return res.json({
-                error: message
+                error: `${err}`
+            })
+        })
+}
+
+exports.getUserByLogin = (req, res) => {
+    conn.select()
+        .table('USER')
+        .where({
+            login: `${req.body.login}`
+        })
+        .then(user => {
+            return res.json({
+                user: user
+            })
+        }).catch(err => {
+            return res.json({
+                error: `${err}`
             })
         })
 }

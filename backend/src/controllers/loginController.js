@@ -10,34 +10,42 @@ exports.login = (req, res) => {
     if (body.login == null || body.password == null || body.login == "" || body.password == "")
         return res.status(422).json({ message: "Login e senha são campos obrigatórios!" });
 
-    conn.select().table('USER').where({ login: `'${body.login}''` }).then(user => {
-        if (user == undefined || user == null) {
-            console.log("Usuário não encontrado.");
-            return res.status(422).json(Message("Usuário ou senha incorretos."));
-        }
+    conn.select()
+        .table('USER')
+        .where({
+            login: `${body.login}`
+        }).then(user => {
+            const pwd = user[0].password;
+            const id = user[0].id;
+            bcrypt.compare(body.password, pwd).then(result => {
+                if (result) {
+                    const token = jwt.sign({
+                        name: user.login
+                    }, process.env.SECRET);
 
-        console.log(`senha da request: ${body.password}`);
-        console.log(`senha do usuário: ${user}`);
-
-        bcrypt.compare(body.password, user.password).then(result => {
-            if (result) {
-                const token = jwt.sign({
-                    name: user.login
-                }, process.env.SECRET);
-
+                    return res.json({
+                        id: id,
+                        token: token
+                    });
+                } else {
+                    return res.status(422).json({
+                        message: "Usuário ou senha incorretos."
+                    });
+                }
+            }).catch(err => {
                 return res.json({
-                    token: token,
-                    id: user.id
-                });
-            } else {
-                return res.status(422).json(Message("Usuário ou senha incorretos."));
-            }
+                    error: `${err}`
+                })
+            })
+        }).catch(err => {
+            return res.json({
+                error: `${err}`
+            })
         })
-    }).catch(err => {
-        console.log('Error ao logar', err);
-    });
-};
+}
 
 exports.logout = (req, res) => {
-    return res.json(Message("Usuário desconectado"));
+    return res.json({
+        message: "Usuário desconectado"
+    });
 }
