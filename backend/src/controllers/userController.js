@@ -7,9 +7,9 @@ const salt = 5;
 exports.create = (req, res) => {
     let body = req.body;
 
-    if (body.password !== body.confirmPassword) {
+    if (body.password !== body.passwordConfirm) {
         return res.json({
-            message: "As senhas não conferem!"
+            message: `As senhas não conferem!`
         })
     }
 
@@ -33,8 +33,14 @@ exports.create = (req, res) => {
                         name: user.login
                     })
                 }).catch((err) => {
+                    let message;
+                    if (err.sqlState === "23000") {
+                        message = "Este login já existe. Tente outro!";
+                    } else {
+                        message = "Ocorreu um erro ao criar o usuário!";
+                    }
                     return res.json({
-                        message: "Ocorreu um erro ao criar o usuário",
+                        message: message,
                         error: err
                     })
                 })
