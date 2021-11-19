@@ -1,4 +1,3 @@
-const User = require("../models/user");
 const conn = require('../../database/connect');
 const bcrypt = require("bcrypt");
 
@@ -13,8 +12,6 @@ exports.create = (req, res) => {
         })
     }
 
-    let user = new User(body.login, body.password);
-
     bcrypt.hash(body.password, salt, (err, hash) => {
         if (err) {
             let error = "Erro ao salvar a senha"
@@ -24,7 +21,7 @@ exports.create = (req, res) => {
             })
         } else {
             conn.insert([{
-                login: user.login,
+                login: body.login,
                 password: hash
             }]).into('USER')
                 .then(user => {
