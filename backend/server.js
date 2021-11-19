@@ -9,6 +9,7 @@ const url = `${protocol}://${hostname}`;
 const port = 9999;
 
 const { create, getAll } = require('./src/controllers/userController');
+const { createTask, getAllTasks, updateTask, deleteTask } = require('./src/controllers/taskController');
 const { login } = require('./src/controllers/loginController');
 
 app.use(cors());
@@ -18,5 +19,10 @@ app.post('/users', create);
 app.get('/users', getAll);
 
 app.post('/login', login);
+
+app.post('/tasks', createTask);
+app.get('/tasks', getAllTasks);
+app.put('/tasks', updateTask);
+app.delete('/tasks', deleteTask);
 
 app.listen(port, hostname,  () => console.log(`Express started at ${url}:${port}`));
