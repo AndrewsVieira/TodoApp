@@ -6,6 +6,13 @@ const salt = 5;
 
 exports.create = (req, res) => {
     let body = req.body;
+
+    if (body.password !== body.confirmPassword) {
+        return res.json({
+            message: "As senhas não conferem!"
+        })
+    }
+
     let user = new User(body.login, body.password);
 
     bcrypt.hash(body.password, salt, (err, hash) => {
