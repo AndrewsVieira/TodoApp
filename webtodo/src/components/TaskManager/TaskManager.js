@@ -15,7 +15,7 @@ export default function Tasks() {
 
     return (
         <Container>
-            <Table className="rankingPanel" xs="auto" >
+            <Table>
                 <thead>
                     <tr >
                         <th scope="row" >Id</th>

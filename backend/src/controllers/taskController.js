@@ -10,9 +10,10 @@ exports.createTask = (req, res) => {
         });
     } else {
         conn.insert([{
-            task: body.task
+            task: body.task,
+            login: body.login
         }]).into('TASK')
-            .then(task => {
+            .then(() => {
                 return res.json({
                     message: "Tarefa criada com sucesso"
                 })

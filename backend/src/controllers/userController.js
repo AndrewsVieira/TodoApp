@@ -24,10 +24,9 @@ exports.create = (req, res) => {
                 login: body.login,
                 password: hash
             }]).into('USER')
-                .then(user => {
+                .then(() => {
                     return res.json({
-                        message: "Usuário criado com sucesso",
-                        name: user.login
+                        message: "Usuário criado com sucesso"
                     })
                 }).catch((err) => {
                     let message;
