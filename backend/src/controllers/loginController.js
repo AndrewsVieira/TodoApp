@@ -7,20 +7,20 @@ require('dotenv').config();
 exports.login = (req, res) => {
     const body = req.body;
 
-    if (body.login == null || body.password == null || body.login == "" || body.password == "")
-        return res.status(422).json({ message: "Login e senha são campos obrigatórios!" });
+    if (body.email == null || body.password == null || body.email == "" || body.password == "")
+        return res.status(422).json({ message: "E-mail e senha são campos obrigatórios!" });
 
     conn.select()
         .table('USER')
         .where({
-            login: `${body.login}`
+            'email': body.email
         }).then(user => {
             const pwd = user[0].password;
             const id = user[0].id;
             bcrypt.compare(body.password, pwd).then(result => {
                 if (result) {
                     const token = jwt.sign({
-                        name: user.login
+                        pwd: pwd
                     }, process.env.SECRET);
 
                     return res.json({
@@ -29,7 +29,7 @@ exports.login = (req, res) => {
                     });
                 } else {
                     return res.status(422).json({
-                        message: "Usuário ou senha incorretos."
+                        message: "E-mail ou senha incorretos."
                     });
                 }
             }).catch(err => {

@@ -9,7 +9,7 @@ const url = `${protocol}://${hostname}`;
 const port = 9999;
 
 const { create, getAll } = require('./src/controllers/userController');
-const { createTask, getAllTasks, updateTask, deleteTask } = require('./src/controllers/taskController');
+const { createTask, getAllTasksById, updateTask, deleteTask } = require('./src/controllers/taskController');
 const { login } = require('./src/controllers/loginController');
 
 app.use(cors());
@@ -21,7 +21,7 @@ app.get('/users', getAll);
 app.post('/login', login);
 
 app.post('/tasks', createTask);
-app.get('/tasks', getAllTasks);
+app.get('/tasks/:id', getAllTasksById);
 app.put('/tasks', updateTask);
 app.delete('/tasks', deleteTask);
 

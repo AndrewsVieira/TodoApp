@@ -1,0 +1,229 @@
+:root {
+    --color-background: #f0f0f7;
+    --color-input-background: #f8f8fc;
+    --color-line-in-white: #e6e6f0;
+    --color-footer: #fafafc; 
+    --color-header-background: #8BC6EC;
+    --color-header-background-image:linear-gradient(135deg, #2387ca 0%, #a3a6d4 100%);
+    --color-basic-text: rgb(73, 73, 73);
+    --status-tasks:'';
+  }
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html,
+  body{
+    height: 100%;
+  }
+  
+  body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: Poppins, sans-serif;
+    background: var(--color-background);
+    color: var(--color-basic-text);
+  }
+  
+  header{
+    text-align: center;
+    height: 5rem;
+    flex-direction: column;
+    align-content: center;
+    align-items: baseline; 
+    background-color: var(--color-header-background);
+    background-image: var(--color-header-background-image);
+  }
+
+  .header{
+      display: inline-flex;
+      margin-top: auto;
+      color: #e4e5eb;
+  }
+  
+  #formInput{
+    display: flex;
+    flex-direction: row;
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
+    justify-content: center;
+    align-self: center;
+  }
+  
+  #addIMG{
+    height: 12mm;
+    padding-top: 1.3mm;
+  }
+  
+  #addButton{
+    border: none;
+    border-radius: 0 0.6rem 0.6rem 0;
+    background-color: white;
+  }
+  main{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    align-items: center;
+  }
+  section{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+    margin: auto;
+  }
+
+  .button{
+      background-color: rgb(189, 188, 188);
+      font-weight: bold;
+  }
+  
+  .button:hover{
+    background-image: var(--color-header-background-image);
+  }
+
+  .login{
+      margin: 0.5rem;
+  }
+
+  .itemForm{
+    display: inline-flex;
+    background-color: white;
+    border-radius: 0.6rem 0.6rem 0.6rem 0.6rem;
+    margin-bottom: 2rem;
+  }
+
+  .itemInput{
+    display: flex;
+    width: 100%;
+    min-width: 100px;
+    height: 3.5rem;
+    color: var(--color-basic-text);
+    align-items: center;
+    border-radius: 0.6rem 0.6rem 0.6rem 0.6rem;
+    border: 1px solid white;
+    outline: 0;
+    padding-left: 53px;
+    font-size: 1.5rem;
+  }
+  
+  #card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  
+  #card #defaultImg{
+    height: 6rem;
+    transition: 0.2s;
+  }
+  #card #defaultImg:hover{
+    height: 6.5rem;
+  }
+  
+  #formItens{
+    display: flex;
+    min-width: 335px;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;  
+  }
+  
+  ul{
+    display: flexbox;
+    width: 100%;
+    padding-left: 0rem;
+  }
+  
+  ul > li{
+    list-style: none;
+    color: var(--color-basic-text);
+    display: flex;
+    margin-bottom: 2mm;
+    font-size: 1.3rem;
+    border-radius: 2px;
+    transition: 0.2s;
+    background-color: var(--color-footer);
+    justify-content: space-between;  
+    padding: 10px;
+    border-radius: 0.3rem;
+    box-shadow: rgba(79, 78, 78, 0.522) 1px 0.1px 10px;
+  }
+  
+  li:hover{
+    background-color: var(--color-header-background);
+    background-image: var(--color-header-background-image);
+    color: white;
+  }
+  
+  li > input{
+    height: 1rem;
+    width: 1rem;
+    margin: 0 3mm 0 3mm;
+    
+    text-align: center;
+    align-self: center;
+    align-items: center;
+  
+    background: var(--color-input-background);
+    border: 1px solid var(--color-line-in-white);
+  }
+  
+  .deleteButton{
+    height: 4.5mm;
+    width: 4.5mm;
+    margin: 0 3mm 0rem 3mm;
+    align-content: center;
+    text-align: center;
+    align-self: center;
+    outline: none;
+    border: none;
+    border-radius: 0.8mm;
+    background: var(--color-input-background);
+    opacity: 85%;
+  }
+  .deleteButton > img{
+    width: 100%;
+    height: 100%;
+  }
+  
+  label{
+   font-style: normal; 
+  }
+  
+  #ListControl{
+    display: flex;
+    flex-direction: row;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    border-radius: 2mm 2mm 2mm 2mm;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    align-content: center;
+    box-shadow: rgba(79, 78, 78, 0.522) 1px 0.1px 10px;
+  }
+  
+  #ListControlContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px 0 10px;
+  }
+  
+  #btnLogout{
+      margin-left: 2rem;
+  }
+  
+  

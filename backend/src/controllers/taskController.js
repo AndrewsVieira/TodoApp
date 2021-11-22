@@ -1,4 +1,5 @@
 const conn = require('../../database/connect');
+const jwt = require('jsonwebtoken');
 
 
 exports.createTask = (req, res) => {
@@ -10,8 +11,10 @@ exports.createTask = (req, res) => {
         });
     } else {
         conn.insert([{
-            task: body.task,
-            login: body.login
+            description: body.description,
+            userId: body.userId,
+            status: body.status,
+            title: body.title
         }]).into('TASK')
             .then(() => {
                 return res.json({
@@ -28,11 +31,16 @@ exports.createTask = (req, res) => {
 
 exports.updateTask = (req, res) => {
     let body = req.body;
+
     conn.table('TASK')
         .where('id', body.id)
         .update({
-            task: body.task
-        }).then(() => {
+            description: body.description,
+            status: body.status,
+            date: body.date,
+            title: body.title
+        }).then((rows) => {
+            console.log(rows);
             return res.json({
                 message: "Tarefa alterada com sucesso!"
             })
@@ -44,9 +52,10 @@ exports.updateTask = (req, res) => {
         })
 }
 
-exports.getAllTasks = (req, res) => {
+exports.getAllTasksById = (req, res) => {
     conn.select()
         .table('TASK')
+        .where('userId', req.params.id)
         .then(tasks => {
             return res.json({
                 tasks: tasks
@@ -61,11 +70,20 @@ exports.getAllTasks = (req, res) => {
 exports.deleteTask = (req, res) => {
     const body = req.body;
     conn.table('TASK')
-        .where('id', body.id)
-        .del().then(() => {
-            return res.json({
-                message: "Tarefa excluída"
-            })
+        .where({
+            'id': body.id,
+            'userId': body.userId
+        })
+        .del().then((rows) => {
+            if (rows) {
+                return res.json({
+                    message: "Tarefa excluída"
+                })
+            } else {
+                return res.json({
+                    message: `Não há tarefa com o id: ${body.id} ou não há tarefas do usuário: ${body.login}`
+                })
+            }
         }).catch(err => {
             return res.json({
                 message: "Não foi possível excluir a tarefa. Tente novamente!",

@@ -1,5 +1,5 @@
 import Config from "../utils/Config";
-import { login as setLogin } from "../utils/Auth";
+import { login as setLogin } from "../utils/auth";
 
 export default function Login(login, password) {
     if (login === "" || password === "" || login === null || password === null) {
@@ -33,8 +33,7 @@ export default function Login(login, password) {
                 return res.json();
             }
         }).then(data => {
-            setLogin(data.token, data.id);
-            console.log(data.token);
+            setLogin(data.token, data.login);
             window.location.href = '/taskManager';
         }).catch(err => {
             alert(err);

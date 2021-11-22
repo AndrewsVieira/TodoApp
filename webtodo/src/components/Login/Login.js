@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
-import { Col, Form, FormLabel as Label, Row } from 'react-bootstrap';
-import Login from '../../services/LoginService'
+import { Col, Form, FormLabel as Label, Row, Button } from 'react-bootstrap';
+import Login from '../../services/loginService'
+import Header from '../Headers/HeaderOut';
 
 export default function LoginUser() {
 
@@ -8,23 +9,24 @@ export default function LoginUser() {
     const [password, setPassword] = useState(null);
 
     return (
-        <Form>
-            <Col>
-                <Row>
-                    <Form.Control type="text" onChange={e => setLogin(e.target.value)} placeholder="Login" required />
-                </Row>
-                <Row>
-                    <Form.Control type="password" onChange={e => setPassword(e.target.value)} placeholder="Senha" required />
-                </Row>
-                <Row>
-                    <Label onClick={() => Login(login, password)}>Entrar</Label>
-                </Row>
-                <Row>
-                    <Label onClick={() => window.location.href = '/account'}>
-                        Criar conta
-                    </Label>
-                </Row>
-            </Col>
-        </Form>
+        <>
+            <Header />
+            <Form id="card">
+                <Col>
+                    <Row>
+                        <Form.Control className="itemInput login" type="text" onChange={e => setLogin(e.target.value)} placeholder="Login" required />
+                    </Row>
+                    <Row>
+                        <Form.Control className="itemInput login" type="password" onChange={e => setPassword(e.target.value)} placeholder="Senha" required />
+                    </Row>
+                    <Row>
+                        <Button className="button itemInput login" onClick={() => Login(login, password)}>Entrar</Button>
+                    </Row>
+                    <Row>
+                        <Button className="button itemInput login" onClick={() => window.location.href = '/account'}>Criar conta</Button>
+                    </Row>
+                </Col>
+            </Form>
+        </>
     );
 }
