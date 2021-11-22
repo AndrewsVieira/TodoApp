@@ -1,5 +1,5 @@
 const TOKEN_KEY = 'to-do-app-token';
-const LOGIN = 'to-do-app-login';
+const USER_ID = 'to-do-app-user-id';
 
 export const getToken = () => {
     return localStorage.getItem(TOKEN_KEY);
@@ -8,18 +8,18 @@ export const getToken = () => {
 export const login = (token, login) => {
     if (token) {
         localStorage.setItem(TOKEN_KEY, token);
-        localStorage.setItem(LOGIN, login);
+        localStorage.setItem(USER_ID, login);
     }
 }
 
 export const logout = () => {
     localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(LOGIN);
+    localStorage.removeItem(USER_ID);
     window.location.href = '/';
 }
 
-export const getLogin = () => {
-    return localStorage.getItem(LOGIN);
+export const getId = () => {
+    return localStorage.getItem(USER_ID);
 }
 
 export const isAuth = () => {

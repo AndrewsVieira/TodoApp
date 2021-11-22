@@ -1,12 +1,18 @@
 import Config from "../utils/Config";
-import { getLogin, getToken } from "../utils/auth";
+import { getId, getToken } from "../utils/auth";
+
+import { React } from 'react';
+import ReactDOM from 'react-dom';
+import { Form, Row, Button } from 'react-bootstrap';
+import addButton from '../img/library_add_black_24dp.svg';
+
 
 const config = new Config();
 const url = `${config.URL}/tasks`;
 const token = getToken();
 
 export async function tasksRequest() {
-    let url = `${config.URL}/tasks/${getLogin()}`;
+    let url = `${config.URL}/tasks/${getId()}`;
     const options = {
         method: 'get',
         headers: {
@@ -18,12 +24,17 @@ export async function tasksRequest() {
     return data.tasks;
 }
 
-export function createTask(task) {
+export function createTask(title, description) {
+    console.log(getId())
+
     const bodyRequest = {
-        login: getLogin(),
-        task: task,
-        completed: false
+        userId: getId(),
+        description: description,
+        status: 0,
+        title: title
     };
+
+    console.log(bodyRequest)
 
     const options = {
         method: 'post',
@@ -38,7 +49,7 @@ export function createTask(task) {
         if (!res.ok) {
             res.json().then(data => {
                 alert(data.message);
-                window.location.href = '/taskManager';
+                // window.location.href = '/taskManager';
             }).catch(err => {
                 alert(err);
             });
@@ -46,7 +57,7 @@ export function createTask(task) {
             return res.json();
         }
     }).then(data => {
-        window.location.href = '/taskManager';
+        // window.location.href = '/taskManager';
     }).catch(err => {
         alert(err);
     });
@@ -55,7 +66,7 @@ export function createTask(task) {
 export function deleteTask(id) {
     const bodyRequest = {
         id: id,
-        login: getLogin()
+        userId: getId()
     };
 
     const options = {
@@ -84,11 +95,13 @@ export function deleteTask(id) {
     });
 }
 
-export function completeTask(id, completed) {
+export function updateTask(id, status, title, description) {
     const bodyRequest = {
         id: id,
-        login: getLogin(),
-        completed: completed
+        userId: getId(),
+        status: status,
+        description: description,
+        title: title
     };
 
     const options = {
@@ -111,8 +124,45 @@ export function completeTask(id, completed) {
             return res.json();
         }
     }).then(data => {
-        console.log(data.message);
+        alert(data.message);
+        window.location.href = '/taskManager';
     }).catch(err => {
+        console.log(err)
         alert(err);
     });
+}
+
+export function getStatus(value) {
+    switch (value) {
+        case 0:
+            return 'Não iniciado';
+        case 1:
+            return 'Em andamento';
+        case 2:
+            return 'Finalizado';
+        default:
+            break;
+    }
+}
+
+export function openDetailsTask(TaskId, TaskStatus, TaskTitle, TaskDescription) {
+
+    ReactDOM.render(
+        <Form>
+            <Row className="itemForm" >
+                <label>Título</label>
+                <Form.Control className="itemInput" type="text"
+                    value={TaskTitle}
+                    onChange={e => TaskTitle = e.target.value}
+                    placeholder="Título da tarefa..." required />
+                <label>Descrição</label>
+                <Form.Control className="itemInput" type="text"
+                    value={TaskDescription}
+                    onChange={e => TaskDescription = e.target.value}
+                    placeholder="Descrição da tarefa..." required />
+                <Button id="addButton"><img onClick={() => updateTask(TaskId, TaskStatus, TaskTitle, TaskDescription)} src={addButton}></img> </Button>
+            </Row>
+        </Form >,
+        document.querySelector(`#task_${TaskId}`)
+    );
 }

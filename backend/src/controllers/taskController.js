@@ -32,6 +32,8 @@ exports.createTask = (req, res) => {
 exports.updateTask = (req, res) => {
     let body = req.body;
 
+    
+
     conn.table('TASK')
         .where('id', body.id)
         .update({

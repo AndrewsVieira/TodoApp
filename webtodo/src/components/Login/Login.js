@@ -5,7 +5,7 @@ import Header from '../Headers/HeaderOut';
 
 export default function LoginUser() {
 
-    const [login, setLogin] = useState(null);
+    const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
 
     return (
@@ -14,13 +14,13 @@ export default function LoginUser() {
             <Form id="card">
                 <Col>
                     <Row>
-                        <Form.Control className="itemInput login" type="text" onChange={e => setLogin(e.target.value)} placeholder="Login" required />
+                        <Form.Control className="itemInput login" type="text" onChange={e => setEmail(e.target.value)} placeholder="E-mail" required />
                     </Row>
                     <Row>
                         <Form.Control className="itemInput login" type="password" onChange={e => setPassword(e.target.value)} placeholder="Senha" required />
                     </Row>
                     <Row>
-                        <Button className="button itemInput login" onClick={() => Login(login, password)}>Entrar</Button>
+                        <Button className="button itemInput login" onClick={() => Login(email, password)}>Entrar</Button>
                     </Row>
                     <Row>
                         <Button className="button itemInput login" onClick={() => window.location.href = '/account'}>Criar conta</Button>
