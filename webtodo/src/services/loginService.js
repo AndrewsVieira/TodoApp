@@ -1,4 +1,4 @@
-import Config from "../utils/Config";
+import conf from "../utils/config.json";
 import { login as setLogin } from "../utils/auth";
 
 export default function Login(login, password) {
@@ -7,8 +7,7 @@ export default function Login(login, password) {
         window.location.href = '/';
     } else {
 
-        const config = new Config();
-        const url = `${config.URL}/login`;
+        const url = `${conf.protocol}://${conf.host}:${conf.port}/login`;
         const bodyRequest = {
             login: login,
             password: password

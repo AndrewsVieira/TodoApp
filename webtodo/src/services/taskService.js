@@ -1,12 +1,11 @@
-import Config from "../utils/Config";
 import { getLogin, getToken } from "../utils/auth";
+import conf from '../utils/config.json'
 
-const config = new Config();
-const url = `${config.URL}/tasks`;
+const url = `${conf.protocol}://${conf.host}:${conf.port}/tasks`;
 const token = getToken();
 
 export async function tasksRequest() {
-    let url = `${config.URL}/tasks/${getLogin()}`;
+    let url = `${conf.protocol}://${conf.host}:${conf.port}/tasks/${getLogin()}`;
     const options = {
         method: 'get',
         headers: {
