@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { DropdownButton, Form, Row, Button, Dropdown } from 'react-bootstrap';
-import { tasksRequest, deleteTask, updateTask, getStatus, openDetailsTask } from '../../services/taskService';
+import { Form, Row, Button } from 'react-bootstrap';
+import { tasksRequest, deleteTask } from '../../services/taskService';
 import Header from '../Headers/HeaderIn';
 import deleteImg from '../../img/deleteImg.png';
 import { createTask } from '../../services/taskService';
@@ -10,8 +9,7 @@ import Index from '../../style/Index.css';
 
 export default function Tasks() {
 
-    const [title, setTitle] = useState(null);
-    const [description, setDescription] = useState(null);
+    const [task, setTask] = useState(null);
 
     const [tasks, setTasks] = useState([]);
     useEffect(() => {
@@ -31,33 +29,19 @@ export default function Tasks() {
                         <Form>
                             <Row className="itemForm" >
                                 <Form.Control className="itemInput" type="text"
-                                    onChange={e => setTitle(e.target.value)}
-                                    placeholder="Título da tarefa..." required />
-                                <Form.Control className="itemInput" type="text"
-                                    onChange={e => setDescription(e.target.value)}
+                                    onChange={e => setTask(e.target.value)}
                                     placeholder="Descrição da tarefa..." required />
-                                <Button id="addButton"><img onClick={() => createTask(title, description)} src={addButton}></img> </Button>
+                                <Button id="addButton"><img onClick={() => createTask(task)} src={addButton}></img> </Button>
                             </Row>
                         </Form >
                         {tasks.map(res => {
                             return (
                                 <ul >
                                     <li>
-
-
-                                        <DropdownButton id="dropdown-item-button" title={getStatus(res.status)}
-                                            name="status" onSelect={(key) => { updateTask(res.id, key, res.title, res.description) }}>
-                                            <Dropdown.Item eventKey="0" as="button">Não iniciado</Dropdown.Item>
-                                            <Dropdown.Item eventKey="1" as="button">Em andamento</Dropdown.Item>
-                                            <Dropdown.Item eventKey="2" as="button">Finalizado</Dropdown.Item>
-                                        </DropdownButton>
-
+                                        <label>{res.status}</label>
                                         <label id="taskItem"
                                             style={res.status === 2 ? { 'text-decoration-line': 'line-through', 'font-style': 'italic', 'opacity': 0.5 } : {}}
-                                            onClick={() => {
-                                                openDetailsTask(res.id, res.status, res.title, res.description)
-                                            }}
-                                        >{res.title}
+                                        >{res.task}
                                         </label>
                                         <label onClick={e => deleteTask(res.id)}><img src={deleteImg} style={{ width: 15 }}></img></label>
                                     </li>

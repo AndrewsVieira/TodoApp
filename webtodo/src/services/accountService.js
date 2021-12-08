@@ -1,17 +1,16 @@
 import Config from "../utils/Config";
 
-export default function CreateAccount(name, email, password, passwordConfirm) {
-    if (name === "" || password === "" || name === null || password === null || email === null || passwordConfirm === null) {
+export default function CreateAccount(login, password, passwordConfirm) {
+    if (login === "" || password === "" || password === null || passwordConfirm === null) {
         alert("Os campos devem ser preenchidos!")
         window.location.href = '/account';
     } else {
         const config = new Config();
         const url = `${config.URL}/users`;
         const bodyRequest = {
-            name: name,
+            login: login,
             password: password,
-            passwordConfirm: passwordConfirm,
-            email: email
+            passwordConfirm: passwordConfirm
         };
         const options = {
             method: 'post',
@@ -34,7 +33,7 @@ export default function CreateAccount(name, email, password, passwordConfirm) {
             }
         }).then(data => {
             alert(data.message);
-            window.location.href = '/';
+            window.location.href = '/account';
         }).catch(err => {
             alert(err);
         });

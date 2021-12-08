@@ -1,12 +1,11 @@
 import { React, useState } from 'react';
-import { Col, Form, FormLabel as Label, Row, Button } from 'react-bootstrap';
+import { Col, Form, Row, Button } from 'react-bootstrap';
 import CreateAccount from '../../services/accountService';
 import Header from '../Headers/HeaderOut';
 
 export default function LoginUser() {
 
-    const [name, setName] = useState(null);
-    const [email, setEmail] = useState(null);
+    const [login, setLogin] = useState(null);
     const [password, setPassword] = useState(null);
     const [passwordConfirm, setPasswordConfirm] = useState(null);
 
@@ -24,10 +23,7 @@ export default function LoginUser() {
             <Form id="card">
                 <Col>
                     <Row>
-                        <Form.Control className="itemInput login" type="text" onChange={e => setName(e.target.value)} placeholder="Nome" required />
-                    </Row>
-                    <Row>
-                        <Form.Control className="itemInput login" type="text" onChange={e => setEmail(e.target.value)} placeholder="E-mail" required />
+                        <Form.Control className="itemInput login" type="text" onChange={e => setLogin(e.target.value)} placeholder="Login" required />
                     </Row>
                     <Row>
                         <Form.Control id="pwd" className="itemInput login" type="password" onChange={e => setPassword(e.target.value)} placeholder="Senha" required />
@@ -36,7 +32,7 @@ export default function LoginUser() {
                         <Form.Control id="cpwd" className="itemInput login" type="password" onChange={e => setPasswordConfirm(e.target.value)} placeholder="Confirmar Senha" required />
                     </Row>
                     <Row>
-                        <Button className="button itemInput login" onClick={() => password === passwordConfirm ? CreateAccount(name, email, password, passwordConfirm) : clean()}>Salvar</Button>
+                        <Button className="button itemInput login" onClick={() => password === passwordConfirm ? CreateAccount(login, password, passwordConfirm) : clean()}>Salvar</Button>
                     </Row>
                     <Row>
                         <Button className="button itemInput login" onClick={() => window.location.href = '/'}>Voltar</Button>

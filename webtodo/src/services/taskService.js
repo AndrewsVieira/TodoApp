@@ -1,18 +1,12 @@
 import Config from "../utils/Config";
-import { getId, getToken } from "../utils/auth";
-
-import { React } from 'react';
-import ReactDOM from 'react-dom';
-import { Form, Row, Button } from 'react-bootstrap';
-import addButton from '../img/library_add_black_24dp.svg';
-
+import { getLogin, getToken } from "../utils/auth";
 
 const config = new Config();
 const url = `${config.URL}/tasks`;
 const token = getToken();
 
 export async function tasksRequest() {
-    let url = `${config.URL}/tasks/${getId()}`;
+    let url = `${config.URL}/tasks/${getLogin()}`;
     const options = {
         method: 'get',
         headers: {
@@ -24,17 +18,12 @@ export async function tasksRequest() {
     return data.tasks;
 }
 
-export function createTask(title, description) {
-    console.log(getId())
-
+export function createTask(task) {
     const bodyRequest = {
-        userId: getId(),
-        description: description,
-        status: 0,
-        title: title
+        login: getLogin(),
+        task: task,
+        status: 0
     };
-
-    console.log(bodyRequest)
 
     const options = {
         method: 'post',
@@ -49,7 +38,7 @@ export function createTask(title, description) {
         if (!res.ok) {
             res.json().then(data => {
                 alert(data.message);
-                // window.location.href = '/taskManager';
+                window.location.href = '/taskManager';
             }).catch(err => {
                 alert(err);
             });
@@ -57,7 +46,7 @@ export function createTask(title, description) {
             return res.json();
         }
     }).then(data => {
-        // window.location.href = '/taskManager';
+        window.location.href = '/taskManager';
     }).catch(err => {
         alert(err);
     });
@@ -66,7 +55,7 @@ export function createTask(title, description) {
 export function deleteTask(id) {
     const bodyRequest = {
         id: id,
-        userId: getId()
+        login: getLogin()
     };
 
     const options = {
@@ -95,13 +84,12 @@ export function deleteTask(id) {
     });
 }
 
-export function updateTask(id, status, title, description) {
+export function updateTask(id, status, task) {
     const bodyRequest = {
         id: id,
-        userId: getId(),
+        login: getLogin(),
         status: status,
-        description: description,
-        title: title
+        task: task
     };
 
     const options = {
@@ -130,39 +118,4 @@ export function updateTask(id, status, title, description) {
         console.log(err)
         alert(err);
     });
-}
-
-export function getStatus(value) {
-    switch (value) {
-        case 0:
-            return 'Não iniciado';
-        case 1:
-            return 'Em andamento';
-        case 2:
-            return 'Finalizado';
-        default:
-            break;
-    }
-}
-
-export function openDetailsTask(TaskId, TaskStatus, TaskTitle, TaskDescription) {
-
-    ReactDOM.render(
-        <Form>
-            <Row className="itemForm" >
-                <label>Título</label>
-                <Form.Control className="itemInput" type="text"
-                    value={TaskTitle}
-                    onChange={e => TaskTitle = e.target.value}
-                    placeholder="Título da tarefa..." required />
-                <label>Descrição</label>
-                <Form.Control className="itemInput" type="text"
-                    value={TaskDescription}
-                    onChange={e => TaskDescription = e.target.value}
-                    placeholder="Descrição da tarefa..." required />
-                <Button id="addButton"><img onClick={() => updateTask(TaskId, TaskStatus, TaskTitle, TaskDescription)} src={addButton}></img> </Button>
-            </Row>
-        </Form >,
-        document.querySelector(`#task_${TaskId}`)
-    );
 }

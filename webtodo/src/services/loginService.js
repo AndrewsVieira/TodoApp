@@ -1,8 +1,8 @@
 import Config from "../utils/Config";
 import { login as setLogin } from "../utils/auth";
 
-export default function Login(email, password) {
-    if (email === "" || password === "" || email === null || password === null) {
+export default function Login(login, password) {
+    if (login === "" || password === "" || login === null || password === null) {
         alert("Os campos devem ser preenchidos!")
         window.location.href = '/';
     } else {
@@ -10,7 +10,7 @@ export default function Login(email, password) {
         const config = new Config();
         const url = `${config.URL}/login`;
         const bodyRequest = {
-            email: email,
+            login: login,
             password: password
         };
         const options = {
@@ -33,7 +33,7 @@ export default function Login(email, password) {
                 return res.json();
             }
         }).then(data => {
-            setLogin(data.token, data.id);
+            setLogin(data.token, data.login);
             window.location.href = '/taskManager';
         }).catch(err => {
             alert(err);
