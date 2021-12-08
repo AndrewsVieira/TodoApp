@@ -11,10 +11,9 @@ exports.createTask = (req, res) => {
         });
     } else {
         conn.insert([{
-            description: body.description,
-            userId: body.userId,
+            task: body.task,
             status: body.status,
-            title: body.title
+            login: body.login
         }]).into('TASK')
             .then(() => {
                 return res.json({
@@ -37,10 +36,8 @@ exports.updateTask = (req, res) => {
     conn.table('TASK')
         .where('id', body.id)
         .update({
-            description: body.description,
-            status: body.status,
-            date: body.date,
-            title: body.title
+            task: body.task,
+            status: body.status
         }).then((rows) => {
             console.log(rows);
             return res.json({
@@ -54,10 +51,10 @@ exports.updateTask = (req, res) => {
         })
 }
 
-exports.getAllTasksById = (req, res) => {
+exports.getAllTasksByLogin = (req, res) => {
     conn.select()
         .table('TASK')
-        .where('userId', req.params.id)
+        .where('login', req.params.login)
         .then(tasks => {
             return res.json({
                 tasks: tasks
@@ -74,7 +71,7 @@ exports.deleteTask = (req, res) => {
     conn.table('TASK')
         .where({
             'id': body.id,
-            'userId': body.userId
+            'login': body.login
         })
         .del().then((rows) => {
             if (rows) {

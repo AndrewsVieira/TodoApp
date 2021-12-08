@@ -21,8 +21,7 @@ exports.create = (req, res) => {
             })
         } else {
             conn.insert([{
-                name: body.name,
-                email: body.email,
+                login: body.login,
                 password: hash
             }]).into('USER')
                 .then(() => {
@@ -60,11 +59,11 @@ exports.getAll = (req, res) => {
         })
 }
 
-exports.getUserById = (req, res) => {
+exports.getUserByLogin = (req, res) => {
     conn.select()
         .table('USER')
         .where({
-            userId: `${req.body.userId}`
+            login: `${req.body.login}`
         })
         .then(user => {
             return res.json({
