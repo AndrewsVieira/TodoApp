@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { Form, Row, Button } from 'react-bootstrap';
-import { tasksRequest, deleteTask } from '../../services/taskService';
+import { tasksRequest, deleteTask, updateTask } from '../../services/taskService';
 import Header from '../Headers/HeaderIn';
 import deleteImg from '../../img/deleteImg.png';
 import { createTask } from '../../services/taskService';
@@ -38,9 +38,12 @@ export default function Tasks() {
                             return (
                                 <ul >
                                     <li>
-                                        <label>{res.status}</label>
+                                        <label><input type="checkbox" checked={res.status} onChange={() => {
+                                            res.status ? res.status = 0 : res.status =  1;
+                                            updateTask(res.id, res.status, res.task)
+                                        }}></input></label>
                                         <label id="taskItem"
-                                            style={res.status === 2 ? { 'text-decoration-line': 'line-through', 'font-style': 'italic', 'opacity': 0.5 } : {}}
+                                            style={res.status === 1 ? { 'text-decoration-line': 'line-through', 'font-style': 'italic', 'opacity': 0.5 } : {}}
                                         >{res.task}
                                         </label>
                                         <label onClick={e => deleteTask(res.id)}><img src={deleteImg} style={{ width: 15 }}></img></label>

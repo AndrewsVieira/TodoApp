@@ -112,10 +112,8 @@ export function updateTask(id, status, task) {
             return res.json();
         }
     }).then(data => {
-        alert(data.message);
-        window.location.href = '/taskManager';
+        return;
     }).catch(err => {
-        console.log(err)
         alert(err);
     });
 }
