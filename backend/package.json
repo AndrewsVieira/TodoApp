@@ -8,6 +8,7 @@
     "express-validator": "^6.13.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.14",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "reload": "^3.2.0"
   }
 }

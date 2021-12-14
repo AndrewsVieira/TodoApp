@@ -20,7 +20,7 @@ exports.login = (req, res) => {
             bcrypt.compare(body.password, pwd).then(result => {
                 if (result) {
                     const token = jwt.sign({
-                        pwd: pwd
+                        login: login
                     }, process.env.SECRET);
 
                     return res.json({
