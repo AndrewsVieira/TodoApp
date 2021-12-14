@@ -4,7 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const url = `${process.env.PROTOCOL}://${process.env.HOST}`;
+const url = `${process.env.PROTOCOL}://${process.env.HOSTSERV}`;
 const { create, getAll } = require('./src/controllers/userController');
 const { createTask, getAllTasksByLogin: getAllTasksByLogin, updateTask, deleteTask } = require('./src/controllers/taskController');
 const { login } = require('./src/controllers/loginController');
@@ -20,4 +20,4 @@ app.get('/tasks/:login', auth, getAllTasksByLogin);
 app.put('/tasks', auth, updateTask);
 app.delete('/tasks', auth, deleteTask);
 
-app.listen(process.env.PORT, process.env.HOST, () => console.log(`Express started at ${url}:${process.env.PORT}`));
+app.listen(process.env.PORT, process.env.HOSTSERV, () => console.log(`Express started at ${url}:${process.env.PORT}`));
