@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import Login from '../../services/loginService';
-import Header from '../Headers/HeaderOut';
+import Header from '../Headers/Header';
 
 export default function LoginUser() {
 

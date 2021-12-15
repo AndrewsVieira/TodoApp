@@ -77,7 +77,7 @@ export function deleteTask(id) {
             return res.json();
         }
     }).then(data => {
-        alert(data.message);
+        return;
     }).catch(err => {
         alert(err);
     });

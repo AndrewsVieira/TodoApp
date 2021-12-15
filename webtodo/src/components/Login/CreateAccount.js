@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import CreateAccount from '../../services/accountService';
-import Header from '../Headers/HeaderOut';
+import Header from '../Headers/Header';
 
 export default function LoginUser() {
 

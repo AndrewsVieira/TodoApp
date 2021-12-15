@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import { Form, Row, Button } from 'react-bootstrap';
 import { tasksRequest, deleteTask, updateTask } from '../../services/taskService';
-import Header from '../Headers/HeaderIn';
+import Header from '../Headers/Header';
 import deleteImg from '../../img/deleteImg.png';
 import { createTask } from '../../services/taskService';
 import addButton from '../../img/library_add_black_24dp.svg';

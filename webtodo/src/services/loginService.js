@@ -35,7 +35,7 @@ export default function Login(login, password) {
             setLogin(data.token, data.login);
             window.location.href = '/taskManager';
         }).catch(err => {
-            alert(err);
+            console.log(err);
         });
     }
 }
