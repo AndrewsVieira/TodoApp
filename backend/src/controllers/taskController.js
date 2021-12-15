@@ -55,6 +55,7 @@ exports.getAllTasksByLogin = (req, res) => {
     conn.select()
         .table('TASK')
         .where('login', req.params.login)
+        .orderBy('id')
         .then(tasks => {
             return res.json({
                 tasks: tasks
