@@ -33,12 +33,12 @@ exports.login = (req, res) => {
                     });
                 }
             }).catch(err => {
-                return res.json({
+                return res.status(422).json({
                     error: `${err}`
                 })
             })
         }).catch(err => {
-            return res.json({
+            return res.status(422).json({
                 error: `${err}`
             })
         })

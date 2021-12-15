@@ -32,7 +32,11 @@ export default function CreateAccount(login, password, passwordConfirm) {
             }
         }).then(data => {
             alert(data.message);
-            window.location.href = '/';
+            if (!data.ok) {
+                window.location.href = '/account';
+            } else {
+                window.location.href = '/account'
+            }
         }).catch(err => {
             alert(err);
         });
