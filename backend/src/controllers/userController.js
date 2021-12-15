@@ -7,7 +7,7 @@ exports.create = (req, res) => {
     let body = req.body;
 
     if (body.password !== body.passwordConfirm) {
-        return res.json({
+        return res.status(422).json({
             message: `As senhas não conferem!`
         })
     }
@@ -35,9 +35,8 @@ exports.create = (req, res) => {
                     } else {
                         message = "Ocorreu um erro ao criar o usuário!";
                     }
-                    return res.json({
-                        message: message,
-                        error: err
+                    return res.status(422).json({
+                        message: message
                     })
                 })
         }

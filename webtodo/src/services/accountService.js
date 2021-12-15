@@ -3,7 +3,6 @@ import conf from "../utils/config.json";
 export default function CreateAccount(login, password, passwordConfirm) {
     if (login === "" || password === "" || password === null || passwordConfirm === null) {
         alert("Os campos devem ser preenchidos!")
-        window.location.href = '/account';
     } else {
         const url = `${conf.protocol}://${conf.host}:${conf.port}/users`;
         const bodyRequest = {
@@ -23,7 +22,7 @@ export default function CreateAccount(login, password, passwordConfirm) {
             if (!res.ok) {
                 res.json().then(data => {
                     alert(data.message);
-                    window.location.href = '/account';
+                    return;
                 }).catch(err => {
                     alert(err);
                 });
@@ -32,13 +31,9 @@ export default function CreateAccount(login, password, passwordConfirm) {
             }
         }).then(data => {
             alert(data.message);
-            if (!data.ok) {
-                window.location.href = '/account';
-            } else {
-                window.location.href = '/account'
-            }
+            window.location.href = '/';
         }).catch(err => {
-            alert(err);
+            console.log(err);
         });
     }
 }
